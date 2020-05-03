@@ -137,6 +137,10 @@ class WorkspaceService
 
     public function saveWorkspaceInvitation($wsInvitation)
     {
+        $this->workspaceRepository->addWorkspaceInvitation($wsInvitation);
+    }
+
+    public function invitationEmailSetting(){
 
     }
 }
