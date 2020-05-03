@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Workspace;
 
 use App\Http\Controllers\Controller;
-use App\Mail\SendMail;
 use App\Services\WorkspaceService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Mail;
 
 class WorkspaceController extends Controller
 {
@@ -59,18 +57,22 @@ class WorkspaceController extends Controller
         return $this->workspaceService->removeWorkspace($workspace);
     }
 
-    public function sendInvitationEmail($email, $link)
+    public function storeInvitation(Request $request)
     {
-        $title = '[Invitation] You\'re very welcome to todomen';
-        $invitation_details = [
-            'email' => $email
-        ];
-        $content_details = [
-            'link' => $email,
+        $rules = [
+            'email_address' => 'required|max:254',
+            'workspace_id' => 'required',
         ];
 
-        $sendmail = Mail::to($invitation_details['email'])->send(new SendMail($title, $invitation_details, $content_details));
+        $this->validate($request, $rules);
+        return $this->workspaceService->invitationEmailSetting($request->all());
     }
 
+    public function invitationAccept(Request $request){
+        $x = $request->query('x');
+        $y = $request->query('y');
+
+        return $this->workspaceService->acceptedInvitation($x, $y);
+    }
 
 }

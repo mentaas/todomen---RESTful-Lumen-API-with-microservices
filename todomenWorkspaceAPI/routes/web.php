@@ -19,4 +19,5 @@ $router->get('/', function () use ($router) {
 
 $router->get('/workspaces', 'Workspace\WorkspaceController@index');
 $router->post('/workspaces', 'Workspace\WorkspaceController@store');
-$router->get('/sendmail', 'Workspace\WorkspaceController@sendEmail');
+$router->post('/workspaces/invitations', 'Workspace\WorkspaceController@storeInvitation');
+$router->get('workspaces/invitations/accept', 'Workspace\WorkspaceController@invitationAccept');

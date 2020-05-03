@@ -16,6 +16,11 @@ class AuthenticateAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if ($request->is("workspaces/invitations/accept"))
+        {
+            return $next($request);
+        }
+
         $validSecrets = explode(',', env('ACCEPTED_SECRETS'));
         if(in_array($request->header('Authorization'), $validSecrets) )
         {

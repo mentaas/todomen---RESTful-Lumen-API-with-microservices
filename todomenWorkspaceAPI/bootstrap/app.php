@@ -75,9 +75,9 @@ $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 |
 */
 
-//$app->middleware([
-//    App\Http\Middleware\AuthenticateAccessMiddleware::class
-//]);
+$app->middleware([
+    App\Http\Middleware\AuthenticateAccessMiddleware::class
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,

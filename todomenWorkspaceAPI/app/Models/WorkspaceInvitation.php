@@ -18,6 +18,6 @@ class WorkspaceInvitation extends Model
     protected $table = 'todomen_workspace_db.workspace_invitations';
 
     protected $fillable = [
-        'workspace_id', 'user_id', 'status_id',
+        'workspace_id', 'email_address', 'status_id',
     ];
 }

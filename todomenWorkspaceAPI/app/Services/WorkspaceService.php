@@ -4,9 +4,13 @@
 namespace App\Services;
 
 
+use App\Enums\WorkspaceInvitationStatus;
+use App\Mail\SendMail;
 use App\Repositories\WorkspaceRepository;
 use Illuminate\Http\Response;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class WorkspaceService
 {
@@ -137,10 +141,52 @@ class WorkspaceService
 
     public function saveWorkspaceInvitation($wsInvitation)
     {
-        $this->workspaceRepository->addWorkspaceInvitation($wsInvitation);
+        $wsInvitation['status_id'] = WorkspaceInvitationStatus::Pending;
+        return $this->workspaceRepository->addWorkspaceInvitation($wsInvitation);
     }
 
-    public function invitationEmailSetting(){
+    public function invitationEmailSetting($wsInvitation)
+    {
+        $workspaceInvitation = $this->saveWorkspaceInvitation($wsInvitation);
+        $hashedEmail = sha1($workspaceInvitation['email_address']);
+        $hashedSalt = sha1(env('EMAIL_SALT'));
+        $link = env('APP_URL') . "/workspaces/invitations/accept?x=" . $hashedEmail . "&y=" . $hashedSalt;
+        $workspaceName = json_decode(json_encode($this->getWorkspace($workspaceInvitation['workspace_id'])), true);
+        $this->sendInvitationEmail($workspaceInvitation['email_address'], $link, $workspaceName['original']['data']['name']);
 
+        return $this->successResponse($workspaceInvitation, Response::HTTP_CREATED);
+    }
+
+    public function sendInvitationEmail($email, $link, $workspace)
+    {
+        $title = '[Invitation] You\'re very welcome to todomen';
+        $invitation_details = [
+            'email' => $email
+        ];
+        $content_details = [
+            'link' => $link,
+            'workspace' => $workspace,
+        ];
+
+        $sendmail = Mail::to($invitation_details['email'])->send(new SendMail($title, $invitation_details, $content_details));
+    }
+
+    public function acceptedInvitation($hashedEmail, $hashedSalt)
+    {
+        $workspaceInvitation = DB::select("select * from todomen_workspace_db.workspace_invitations where SHA1(email_address) = ? ", [$hashedEmail])[0];
+        $workspaceInvitation = (array)$workspaceInvitation;
+        if ($workspaceInvitation['status_id'] == WorkspaceInvitationStatus::Pending) {
+            if ($workspaceInvitation != null && sha1(env('EMAIL_SALT')) == $hashedSalt) {
+                try{
+                    $workspaceInvitation['status_id'] = WorkspaceInvitationStatus::Accepted;
+                    $this->workspaceRepository->updateWorkspaceInvitation($workspaceInvitation['id'], $workspaceInvitation);
+                    return redirect(env('ACCEPT_INVITATION_REDIRECT_SUCCESS'));
+                }catch (\Exception $e){
+                    return redirect(env('ACCEPT_INVITATION_REDIRECT_FAIL'));
+                }
+            }
+            return redirect(env('FRONT_REDIRECT_LOGIN'));
+        }else
+            return redirect(env('FRONT_REDIRECT_LOGIN'));
     }
 }
