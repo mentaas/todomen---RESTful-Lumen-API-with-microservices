@@ -82,6 +82,11 @@ class WorkspaceService
         return $this->workspaceRepository->addWorkspaceUser($wsUser);
     }
 
+    public function saveWorkspaceUserResponse($wsUser)
+    {
+        return $this->successResponse($this->saveWorkspaceUser($wsUser));
+    }
+
     public function editWorkspaceUser(int $id, $wsUser)
     {
         $dbWorkspace = $this->workspaceRepository->getWorkspaceUser($id);
@@ -96,6 +101,14 @@ class WorkspaceService
             $this->successResponse(null, Response::HTTP_NO_CONTENT);
         else
             $this->errorResponse('Couldn\'t update this workspace User', Response::HTTP_BAD_REQUEST);
+    }
+
+    public function removeWorkspaceUser(int $id)
+    {
+        if ($this->workspaceRepository->deleteWorkspaceUser($id))
+            return $this->successResponse(null, Response::HTTP_NO_CONTENT);
+        else
+            return $this->errorResponse('Couldn\'t find this resource', Response::HTTP_NOT_FOUND);
     }
 
     public function getWorkspaceUser(int $id)
@@ -113,6 +126,11 @@ class WorkspaceService
         return $this->workspaceRepository->addWorkspaceAdmin($wsAdmin);
     }
 
+    public function saveWorkspaceAdminResponse($wsUser)
+    {
+        return $this->successResponse($this->saveWorkspaceUser($wsUser));
+    }
+
     public function editWorkspaceAdmin(int $id, $wsAdmin)
     {
         $dbWorkspaceAdmin = $this->workspaceRepository->getWorkspaceAdmin($id);
@@ -127,6 +145,14 @@ class WorkspaceService
             $this->successResponse(null, Response::HTTP_NO_CONTENT);
         else
             $this->errorResponse('Couldn\'t update this workspace Admin', Response::HTTP_BAD_REQUEST);
+    }
+
+    public function removeWorkspaceAdmin(int $id)
+    {
+        if ($this->workspaceRepository->deleteWorkspaceAdmin($id))
+            return $this->successResponse(null, Response::HTTP_NO_CONTENT);
+        else
+            return $this->errorResponse('Couldn\'t find this resource', Response::HTTP_NOT_FOUND);
     }
 
     public function getWorkspaceAdmin(int $workspaceId)
@@ -188,5 +214,23 @@ class WorkspaceService
             return redirect(env('FRONT_REDIRECT_LOGIN'));
         }else
             return redirect(env('FRONT_REDIRECT_LOGIN'));
+    }
+
+    public function getWorkspaceInvitationByStatus($wsInvitationStatusId, $wsId)
+    {
+        return $this->successResponse($this->workspaceRepository->getWorkspaceInvitationByStatusId($wsInvitationStatusId, $wsId));
+    }
+
+    public function getWorkspaceInvitation($id)
+    {
+        return $this->successResponse($this->workspaceRepository->getWorkspaceInvitation($id));
+    }
+
+    public function removeWorkspaceInvitation($id)
+    {
+        if ($this->workspaceRepository->deleteWorkspaceInvitation($id))
+            return $this->successResponse(null, Response::HTTP_NO_CONTENT);
+        else
+            return $this->errorResponse('Couldn\'t find this resource', Response::HTTP_NOT_FOUND);
     }
 }

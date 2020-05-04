@@ -1,14 +1,15 @@
 <?php
 
+
 namespace App\Http\Controllers\Workspace;
+
 
 use App\Http\Controllers\Controller;
 use App\Services\WorkspaceService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class WorkspaceController extends Controller
+class WorkspaceAdminController extends Controller
 {
     use ApiResponser;
 
@@ -21,41 +22,37 @@ class WorkspaceController extends Controller
         $this->request = $request;
     }
 
-    public function index(){
-        return $this->workspaceService->getUserWorkspaces($this->request->header('Authorization-Key'));
+    public function index($wsId){
+        return $this->workspaceService->getWorkspaceAdmins($wsId);
     }
 
     public function store(Request $request)
     {
         $rules = [
-            'name'      => 'required|max:254',
-            'expire_date' => 'date_format:Y-m-d H:i:s',
+            'workspace_id' => 'required',
+            'user_id' => 'required',
         ];
 
         $this->validate($request, $rules);
-        return $this->workspaceService->saveWorkspace($request, $this->request->header('Authorization-Key'));
+        return $this->workspaceService->saveWorkspaceAdminResponse($request);
     }
 
     public function show($workspace)
     {
-        return $this->workspaceService->getWorkspace($workspace);
+        return $this->workspaceService->getWorkspaceAdmin($workspace);
     }
 
     public function update(Request $request, $workspace)
     {
         $rules = [
-            'name'      => 'max:254',
-            'is_active'    => 'required',
+            'is_active' => 'required',
         ];
         $this->validate($request, $rules);
-
-        return $this->workspaceService->editWorkspace($workspace, $request);
+        return $this->workspaceService->editWorkspaceAdmin($workspace, $request);
     }
 
     public function destroy($workspace)
     {
-        return $this->workspaceService->removeWorkspace($workspace);
+        return $this->workspaceService->removeWorkspaceAdmin($workspace);
     }
-
-
 }

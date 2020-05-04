@@ -106,6 +106,12 @@ class WorkspaceRepository
         return $dbWorkspaceUser->update(['is_active' => $workspaceUser['is_active']]);
     }
 
+    public function deleteWorkspaceUser(int $id){
+        $workspaceUser = $this->workspaceUser->where('id', $id);
+        if ($workspaceUser != null)
+            return $workspaceUser->delete();
+    }
+
     public function getWorkspaceInvitation(int $id){
         return $this->workspaceInvitation->findOrFail($id);
     }
