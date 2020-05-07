@@ -22,8 +22,8 @@ class WorkspaceUserController extends Controller
         $this->request = $request;
     }
 
-    public function index(){
-        return $this->workspaceService->getWorkspaceUsers($this->request->header('Authorization-Key'));
+    public function index($workspaceId){
+        return $this->workspaceService->getWorkspaceUsers($workspaceId);
     }
 
     public function store(Request $request)

@@ -116,9 +116,9 @@ class WorkspaceService
         return $this->successResponse($this->workspaceRepository->getWorkspaceUser($id));
     }
 
-    public function getWorkspaceUsers($userId)
+    public function getWorkspaceUsers($workspaceId)
     {
-        return $this->successResponse($this->workspaceRepository->getWorkspaceUsersByUserId($userId));
+        return $this->successResponse($this->workspaceRepository->getWorkspaceUsersByWorkspaceId($workspaceId));
     }
 
     public function saveWorkspaceAdmin($wsAdmin)
@@ -155,9 +155,9 @@ class WorkspaceService
             return $this->errorResponse('Couldn\'t find this resource', Response::HTTP_NOT_FOUND);
     }
 
-    public function getWorkspaceAdmin(int $workspaceId)
+    public function getWorkspaceAdmin(int $workspaceId, int $userId)
     {
-        return $this->successResponse($this->workspaceRepository->getWorkspaceAdmin($workspaceId));
+        return $this->successResponse($this->workspaceRepository->getWorkspaceAdmin($workspaceId, $userId));
     }
 
     public function getWorkspaceAdmins(int $workspaceId)

@@ -37,9 +37,9 @@ class WorkspaceAdminController extends Controller
         return $this->workspaceService->saveWorkspaceAdminResponse($request);
     }
 
-    public function show($workspace)
+    public function show($workspace, $userId)
     {
-        return $this->workspaceService->getWorkspaceAdmin($workspace);
+        return $this->workspaceService->getWorkspaceAdmin($workspace, $userId);
     }
 
     public function update(Request $request, $workspace)

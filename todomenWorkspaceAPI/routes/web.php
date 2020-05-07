@@ -24,16 +24,16 @@ $router->put('/workspaces/{workspace}', 'Workspace\WorkspaceController@update');
 $router->delete('/workspaces/{workspace}', 'Workspace\WorkspaceController@destroy');
 
 $router->get('/workspaces/admins/{workspaceId}', 'Workspace\WorkspaceAdminController@index');
-$router->post('/workspaces/admin', 'Workspace\WorkspaceAdminController@store');
-$router->get('/workspaces/admin/{workspaceId}', 'Workspace\WorkspaceAdminController@show');
-$router->put('/workspaces/admin/{workspaceAdmin}', 'Workspace\WorkspaceAdminController@update');
-$router->delete('/workspaces/admin/{workspaceAdmin}', 'Workspace\WorkspaceAdminController@destroy');
+$router->post('/workspaces/admins', 'Workspace\WorkspaceAdminController@store');
+$router->get('/workspaces/admins/{workspaceId}/{userId}', 'Workspace\WorkspaceAdminController@show');
+$router->put('/workspaces/admins/{workspaceAdmin}', 'Workspace\WorkspaceAdminController@update');
+$router->delete('/workspaces/admins/{workspaceAdmin}', 'Workspace\WorkspaceAdminController@destroy');
 
 $router->get('/workspaces/users/{userId}', 'Workspace\WorkspaceUserController@index');
 $router->post('/workspaces/users', 'Workspace\WorkspaceUserController@store');
-$router->get('/workspaces/admin/{userId}', 'Workspace\WorkspaceUserController@show');
-$router->put('/workspaces/admin/{workspaceUser}', 'Workspace\WorkspaceUserController@update');
-$router->delete('/workspaces/admin/{workspaceUser}', 'Workspace\WorkspaceUserController@destroy');
+$router->get('/workspaces/users/{userId}', 'Workspace\WorkspaceUserController@show');
+$router->put('/workspaces/users/{workspaceUser}', 'Workspace\WorkspaceUserController@update');
+$router->delete('/workspaces/users/{workspaceUser}', 'Workspace\WorkspaceUserController@destroy');
 
 
 $router->get('workspaces/invitations/{statusId}/{workspaceId}', 'Workspace\WorkspaceInvitationController@index');

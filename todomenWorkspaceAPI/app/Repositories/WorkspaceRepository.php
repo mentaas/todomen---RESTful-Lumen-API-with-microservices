@@ -62,8 +62,8 @@ class WorkspaceRepository
             return $workspace->delete();
     }
 
-    public function getWorkspaceAdmin(int $workspaceId){
-        return $this->workspaceAdmin->where('workspace_id', $workspaceId)->first();
+    public function getWorkspaceAdmin(int $workspaceId, int $userId){
+        return $this->workspaceAdmin->where([['workspace_id', '=', $workspaceId], ['user_id', '=', $userId]])->first();
     }
 
     public function getWorkspaceAdmins(int $workspaceId){

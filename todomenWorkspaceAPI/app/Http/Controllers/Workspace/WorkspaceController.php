@@ -36,7 +36,7 @@ class WorkspaceController extends Controller
         return $this->workspaceService->saveWorkspace($request, $this->request->header('Authorization-Key'));
     }
 
-    public function show($workspace)
+    public function show($workspace, $userId)
     {
         return $this->workspaceService->getWorkspace($workspace);
     }
