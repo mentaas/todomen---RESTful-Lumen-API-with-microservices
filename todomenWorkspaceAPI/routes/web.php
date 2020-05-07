@@ -36,6 +36,7 @@ $router->put('/workspaces/admin/{workspaceUser}', 'Workspace\WorkspaceUserContro
 $router->delete('/workspaces/admin/{workspaceUser}', 'Workspace\WorkspaceUserController@destroy');
 
 
-
+$router->get('workspaces/invitations/{statusId}/{workspaceId}', 'Workspace\WorkspaceInvitationController@index');
 $router->post('/workspaces/invitations', 'Workspace\WorkspaceInvitationController@store');
 $router->get('workspaces/invitations/accept', 'Workspace\WorkspaceInvitationController@invitationAccept');
+$router->delete('workspaces/invitations/{invitation}', 'Workspace\WorkspaceInvitationController@destroy');

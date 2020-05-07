@@ -21,8 +21,8 @@ class WorkspaceInvitationController extends Controller
         $this->request = $request;
     }
 
-    public function index($wsInvitationStatusId, $wsId){
-        return $this->workspaceService->getWorkspaceInvitationByStatus($wsInvitationStatusId, $wsId);
+    public function index($wsInvitationStatusId, $workspaceId){
+        return $this->workspaceService->getWorkspaceInvitationByStatus($wsInvitationStatusId, $workspaceId);
     }
 
     public function store(Request $request)
