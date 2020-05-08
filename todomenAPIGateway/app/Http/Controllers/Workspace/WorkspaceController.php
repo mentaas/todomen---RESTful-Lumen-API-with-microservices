@@ -21,11 +21,47 @@ class WorkspaceController extends Controller
     }
 
     //<editor-fold desc="Workspace">
+    /**
+     * @OA\Get(
+     *     path="/workspaces",
+     *     operationId="/workspaces",
+     *     tags={"Workspaces"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Returns all workspaces",
+     *         @OA\JsonContent()
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
     public function index()
     {
         return $this->successResponse($this->workspaceService->obtainWorkspaces());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/workspaces",
+     *   operationId="createWorkspace",
+     *   tags={"Workspaces"},
+     *   @OA\RequestBody(
+     *         description="create workspace",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/NewWorkspace")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="pet response",
+     *         @OA\JsonContent(ref="#/components/schemas/Workspace")
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
     public function store(Request $request)
     {
         return $this->successResponse($this->workspaceService->createWorkspace($request->all()), Response::HTTP_CREATED);
