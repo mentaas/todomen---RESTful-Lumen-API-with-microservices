@@ -13,9 +13,9 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+//$router->get('/', function () use ($router) {
+//    return $router->app->version();
+//});
 $router->group(['middleware' => 'auth'], function() use ($router) {
 
     //workspaces
@@ -43,5 +43,19 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
     $router->get('/workspaces/invitations/{statusId}/{workspaceId}', 'Workspace\WorkspaceController@indexInvitation');
     $router->post('/workspaces/invitations', 'Workspace\WorkspaceController@storeInvitation');
     $router->delete('/workspaces/invitations/{workspaceInvitation}', 'Workspace\WorkspaceController@destroyAdmin');
+
+    //board
+    $router->get('/boards/all/{workspaceId}', 'Board\BoardController@index');
+    $router->post('/boards', 'Board\BoardController@store');
+    $router->get('/boards/{board}', 'Board\BoardController@show');
+    $router->put('/boards/{board}', 'Board\BoardController@update');
+    $router->delete('/boards/{board}', 'Board\BoardController@destroy');
+
+    //boardUser
+    $router->get('/boards/users/all/{workspaceId}', 'Board\BoardController@indexUser');
+    $router->post('/boards/users', 'Board\BoardController@storeUser');
+    $router->get('/boards/users/{boardUser}', 'Board\BoardController@showUser');
+    $router->put('/boards/users/{boardUser}', 'Board\BoardController@updateUser');
+    $router->delete('/boards/users/{boardUser}', 'Board\BoardController@destroyUser');
 });
 $router->post('/register','UsersController@register');
