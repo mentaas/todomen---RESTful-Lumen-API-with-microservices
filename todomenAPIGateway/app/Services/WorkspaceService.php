@@ -38,7 +38,7 @@ class WorkspaceService
 
     public function editWorkspace($id, $data)
     {
-        return $this->performRequest('PUT', "workspaces/{$id}");
+        return $this->performRequest('PUT', "workspaces/{$id}", $data);
     }
 
     public function deleteWorkspace($id)

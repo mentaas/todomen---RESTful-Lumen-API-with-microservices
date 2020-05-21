@@ -64,22 +64,22 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->successResponse($this->workspaceService->createWorkspace($request->all()), Response::HTTP_CREATED);
+        return $this->successResponse($this->workspaceService->createWorkspace($request->all()));
     }
 
-    public function show($id)
+    public function show($workspace)
     {
-        return $this->successResponse($this->workspaceService->obtainWorkspace($id), Response::HTTP_OK);
+        return $this->successResponse($this->workspaceService->obtainWorkspace($workspace));
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $workspace)
     {
-        return $this->successResponse($this->workspaceService->editWorkspace($id, $request), Response::HTTP_NO_CONTENT);
+        return $this->successResponse($this->workspaceService->editWorkspace($workspace, $request->all()));
     }
 
-    public function destroy($id)
+    public function destroy($workspace)
     {
-        return $this->successResponse($this->workspaceService->deleteWorkspace($id), Response::HTTP_NO_CONTENT);
+        return $this->successResponse($this->workspaceService->deleteWorkspace($workspace), Response::HTTP_NO_CONTENT);
     }
     //</editor-fold>
 

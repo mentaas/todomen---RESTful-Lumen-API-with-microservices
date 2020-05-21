@@ -36,7 +36,7 @@ class WorkspaceController extends Controller
         return $this->workspaceService->saveWorkspace($request, $this->request->header('Authorization-Key'));
     }
 
-    public function show($workspace, $userId)
+    public function show($workspace)
     {
         return $this->workspaceService->getWorkspace($workspace);
     }
@@ -44,7 +44,7 @@ class WorkspaceController extends Controller
     public function update(Request $request, $workspace)
     {
         $rules = [
-            'name'      => 'max:254',
+            'name'      => 'required|max:254',
             'is_active'    => 'required',
         ];
         $this->validate($request, $rules);
