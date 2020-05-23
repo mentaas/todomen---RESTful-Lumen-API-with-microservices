@@ -20,7 +20,9 @@ class BoardRepository
 
     public function addBoard($board)
     {
-        return $this->board->create($board);
+        $board = $this->board->create($board);
+        $this->addBoardUser(['board_id' => $board['id'], 'user_id' => $board['admin_user_id'], 'created_by_id' => $board['created_by_id']]);
+        return $board;
     }
 
     public function updateBoard(int $id, $board)
@@ -66,7 +68,7 @@ class BoardRepository
 
     public function getBoardUsers(int $boardId)
     {
-        return $this->boardUser->where('board_id', $boardId);
+        return $this->boardUser->where('board_id', $boardId)->get();
     }
 
 }

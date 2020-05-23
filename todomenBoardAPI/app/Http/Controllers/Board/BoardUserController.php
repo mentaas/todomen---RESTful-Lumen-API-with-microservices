@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use App\Services\BoardService;
-use Laravel\Lumen\Http\Request;
+use Illuminate\Http\Request;
 
 class BoardUserController extends Controller
 {

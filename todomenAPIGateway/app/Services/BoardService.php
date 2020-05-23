@@ -40,7 +40,7 @@ class BoardService
 
     public function editBoard($id, $data)
     {
-        return $this->performRequest('PUT', "boards/{$id}");
+        return $this->performRequest('PUT', "boards/{$id}", $data);
     }
 
     public function deleteBoard($id)
@@ -54,27 +54,27 @@ class BoardService
 
     public function obtainBoardUsers($workspaceId)
     {
-        return $this->performRequest('GET', "/boardUsers/all/{$workspaceId}");
+        return $this->performRequest('GET', "/boards/users/all/{$workspaceId}");
     }
 
     public function createBoardUser($data)
     {
-        return $this->performRequest('POST', '/boardUsers', $data);
+        return $this->performRequest('POST', '/boards/users', $data);
     }
 
     public function obtainBoardUser($id)
     {
-        return $this->performRequest('GET', "/boardUsers/{$id}");
+        return $this->performRequest('GET', "/boards/users/{$id}");
     }
 
     public function editBoardUser($id, $data)
     {
-        return $this->performRequest('PUT', "boardUsers/{$id}");
+        return $this->performRequest('PUT', "boards/users/{$id}", $data);
     }
 
     public function deleteBoardUser($id)
     {
-        return $this->performRequest('DELETE', "boardUsers/{$id}");
+        return $this->performRequest('DELETE', "boards/users/{$id}");
     }
 
     //</editor-fold>

@@ -10,4 +10,9 @@ return [
         'base_uri'  =>  env('BOARDS_SERVICE_BASE_URL'),
         'secret'  =>  env('BOARDS_SERVICE_SECRET'),
     ],
+
+    'lists'   =>  [
+        'base_uri'  =>  env('LISTS_SERVICE_BASE_URL'),
+        'secret'  =>  env('LISTS_SERVICE_SECRET'),
+    ],
 ];

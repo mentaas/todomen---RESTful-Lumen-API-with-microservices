@@ -52,10 +52,17 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
     $router->delete('/boards/{board}', 'Board\BoardController@destroy');
 
     //boardUser
-    $router->get('/boards/users/all/{workspaceId}', 'Board\BoardController@indexUser');
+    $router->get('/boards/users/all/{boardId}', 'Board\BoardController@indexUser');
     $router->post('/boards/users', 'Board\BoardController@storeUser');
     $router->get('/boards/users/{boardUser}', 'Board\BoardController@showUser');
-    $router->put('/boards/users/{boardUser}', 'Board\BoardController@updateUser');
+//    $router->put('/boards/users/{boardUser}', 'Board\BoardController@updateUser');
     $router->delete('/boards/users/{boardUser}', 'Board\BoardController@destroyUser');
+
+    //list
+    $router->get('/lists/all/{boardId}', 'Lists\ListController@index');
+    $router->post('/lists', 'Lists\ListController@store');
+    $router->get('/lists/{list}', 'Lists\ListController@show');
+    $router->put('/lists/{list}', 'Lists\ListController@update');
+    $router->delete('/lists/{list}', 'Lists\ListController@destroy');
 });
 $router->post('/register','UsersController@register');

@@ -8,6 +8,7 @@ use App\Services\BoardService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function GuzzleHttp\Promise\all;
 
 class BoardController
 {
@@ -66,19 +67,19 @@ class BoardController
         return $this->successResponse($this->boardService->createBoard($request->all()));
     }
 
-    public function show($id)
+    public function show($board)
     {
-        return $this->successResponse($this->boardService->obtainBoard($id));
+        return $this->successResponse($this->boardService->obtainBoard($board));
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $board)
     {
-        return $this->successResponse($this->boardService->editBoard($id, $request));
+        return $this->successResponse($this->boardService->editBoard($board, $request->all()));
     }
 
-    public function destroy($id)
+    public function destroy($board)
     {
-        return $this->successResponse($this->boardService->deleteBoard($id));
+        return $this->successResponse($this->boardService->deleteBoard($board));
     }
     //</editor-fold>
 
@@ -96,9 +97,9 @@ class BoardController
      *     security={{ "apiAuth": {} }}
      * )
      */
-    public function indexUser($workspaceId)
+    public function indexUser($boardId)
     {
-        return $this->successResponse($this->boardService->obtainBoardUsers($workspaceId));
+        return $this->successResponse($this->boardService->obtainBoardUsers($boardId));
     }
 
     /**
@@ -129,19 +130,19 @@ class BoardController
         return $this->successResponse($this->boardService->createBoardUser($request->all()));
     }
 
-    public function showUser($id)
+    public function showUser($boardUser)
     {
-        return $this->successResponse($this->boardService->obtainBoardUser($id));
+        return $this->successResponse($this->boardService->obtainBoardUser($boardUser));
     }
 
-    public function updateUser($id, Request $request)
+    public function updateUser(Request $request, $boardUser)
     {
-        return $this->successResponse($this->boardService->editBoardUser($id, $request));
+        return $this->successResponse($this->boardService->editBoardUser($boardUser, $request->all()));
     }
 
-    public function destroyUser($id)
+    public function destroyUser($boardUser)
     {
-        return $this->successResponse($this->boardService->deleteBoardUser($id));
+        return $this->successResponse($this->boardService->deleteBoardUser($boardUser));
     }
     //</editor-fold>
 

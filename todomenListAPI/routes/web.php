@@ -16,3 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/lists/all/{boardId}', 'ListControllers\ListController@index');
+$router->post('/lists', 'ListControllers\ListController@store');
+$router->get('/lists/{list}', 'ListControllers\ListController@show');
+$router->put('/lists/{list}', 'ListControllers\ListController@update');
+$router->delete('/lists/{list}', 'ListControllers\ListController@destroy');
