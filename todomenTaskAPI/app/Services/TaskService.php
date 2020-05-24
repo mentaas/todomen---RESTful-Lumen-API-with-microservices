@@ -16,12 +16,12 @@ class TaskService
     public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
-        set_exception_handler(array('App\Services\TaskService','exception_handler'));
+//        set_exception_handler(array('App\Services\TaskService','exception_handler'));
     }
 
-    public static function exception_handler(\Exception $e) {
-        return \response()->json(['error' => $e->getMessage(), 'code' => Response::HTTP_BAD_REQUEST], Response::HTTP_BAD_REQUEST);
-    }
+//    public static function exception_handler(\Exception $e) {
+//        return \response()->json(['error' => $e->getMessage(), 'code' => Response::HTTP_BAD_REQUEST], Response::HTTP_BAD_REQUEST);
+//    }
 
     public function saveTask($task, $user_id)
     {
@@ -29,9 +29,9 @@ class TaskService
             'name' => $task['name'],
             'description' => $task['description'],
             'list_id' => $task['list_id'],
-            'priority_id' => $task['priority_id'],
-            'has_deadline' => $task['has_deadline'],
-            'deadline_date' => $task['deadline_date'],
+//            'priority_id' => $task['priority_id'],
+            'has_deadline' => isset($task['has_deadline']) ? $task['has_deadline']: false,
+            'deadline_date' => isset($task['deadline_date']) ? $task['deadline_date']: null,
             'created_by_id' => $user_id
         ];
         return $this->successResponse($this->taskRepository->addTask($new_task), Response::HTTP_CREATED);

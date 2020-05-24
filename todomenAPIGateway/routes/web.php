@@ -64,5 +64,26 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
     $router->get('/lists/{list}', 'Lists\ListController@show');
     $router->put('/lists/{list}', 'Lists\ListController@update');
     $router->delete('/lists/{list}', 'Lists\ListController@destroy');
+
+    //task
+    $router->get('/tasks/all/{listId}', 'Task\TaskController@index');
+    $router->post('/tasks', 'Task\TaskController@store');
+    $router->get('/tasks/{task}', 'Task\TaskController@show');
+    $router->put('/tasks/{task}', 'Task\TaskController@update');
+    $router->delete('/tasks/{task}', 'Task\TaskController@destroy');
+
+    //taskAssign
+    $router->get('/tasks/assigns/all/{taskId}', 'Task\TaskController@indexAssign');
+    $router->post('/tasks/assigns', 'Task\TaskController@storeUser');
+    $router->get('/tasks/assigns/{boardUser}', 'Task\TaskController@showAssign');
+    $router->delete('/tasks/assigns/{boardUser}', 'Task\TaskController@destroyAssign');
+
+    //taskComment
+    $router->get('/tasks/comments/all/{taskId}', 'Task\TaskController@indexComment');
+    $router->post('/tasks/comments', 'Task\TaskController@storeComment');
+    $router->get('/tasks/comments/{task}', 'Task\TaskController@showComment');
+    $router->put('/tasks/comments/{task}', 'Task\TaskController@updateComment');
+    $router->delete('/tasks/comments/{task}', 'Task\TaskController@destroyComment');
+
 });
 $router->post('/register','UsersController@register');

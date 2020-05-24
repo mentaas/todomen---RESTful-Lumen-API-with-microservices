@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Services\BoardService;
 use App\Traits\ApiResponser;
+use App\Utils\FormatApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function GuzzleHttp\Promise\all;
@@ -36,7 +37,8 @@ class BoardController
      */
     public function index($workspaceId)
     {
-        return $this->successResponse($this->boardService->obtainBoards($workspaceId));
+        $response = $this->boardService->obtainBoards($workspaceId);
+        return $this->successResponse($response->data, $response->code);
     }
 
     /**
@@ -64,22 +66,26 @@ class BoardController
      */
     public function store(Request $request)
     {
-        return $this->successResponse($this->boardService->createBoard($request->all()));
+        $response = $this->boardService->createBoard($request->all());
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function show($board)
     {
-        return $this->successResponse($this->boardService->obtainBoard($board));
+        $response = $this->boardService->obtainBoard($board);
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function update(Request $request, $board)
     {
-        return $this->successResponse($this->boardService->editBoard($board, $request->all()));
+        $response = $this->boardService->editBoard($board, $request->all());
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function destroy($board)
     {
-        return $this->successResponse($this->boardService->deleteBoard($board));
+        $res = $this->boardService->deleteBoard($board);
+        return $this->successResponse($res->data, $res->code);
     }
     //</editor-fold>
 
@@ -99,7 +105,8 @@ class BoardController
      */
     public function indexUser($boardId)
     {
-        return $this->successResponse($this->boardService->obtainBoardUsers($boardId));
+        $response = $this->boardService->obtainBoardUsers($boardId);
+        return $this->successResponse($response->data, $response->code);
     }
 
     /**
@@ -127,22 +134,26 @@ class BoardController
      */
     public function storeUser(Request $request)
     {
-        return $this->successResponse($this->boardService->createBoardUser($request->all()));
+        $response = $this->boardService->createBoardUser($request->all());
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function showUser($boardUser)
     {
-        return $this->successResponse($this->boardService->obtainBoardUser($boardUser));
+        $response = $this->boardService->obtainBoardUser($boardUser);
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function updateUser(Request $request, $boardUser)
     {
-        return $this->successResponse($this->boardService->editBoardUser($boardUser, $request->all()));
+        $response = $this->boardService->editBoardUser($boardUser, $request->all());
+        return $this->successResponse($response->data, $response->code);
     }
 
     public function destroyUser($boardUser)
     {
-        return $this->successResponse($this->boardService->deleteBoardUser($boardUser));
+        $response = $this->boardService->deleteBoardUser($boardUser);
+        return $this->successResponse($response->data, $response->code);
     }
     //</editor-fold>
 

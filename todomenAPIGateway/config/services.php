@@ -15,4 +15,9 @@ return [
         'base_uri'  =>  env('LISTS_SERVICE_BASE_URL'),
         'secret'  =>  env('LISTS_SERVICE_SECRET'),
     ],
+
+    'tasks'   =>  [
+        'base_uri'  =>  env('TASKS_SERVICE_BASE_URL'),
+        'secret'  =>  env('TASKS_SERVICE_SECRET'),
+    ],
 ];

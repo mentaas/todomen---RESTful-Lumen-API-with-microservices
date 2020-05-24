@@ -20,16 +20,16 @@ $router->get('/', function () use ($router) {
 $router->get('/tasks/all/{listId}', 'Task\TaskController@index');
 $router->post('/tasks', 'Task\TaskController@store');
 $router->get('/tasks/{task}', 'Task\TaskController@show');
-$router->put('/boards/{task}', 'Task\TaskController@update');
-$router->delete('/boards/{task}', 'Task\TaskController@destroy');
+$router->put('/tasks/{task}', 'Task\TaskController@update');
+$router->delete('/tasks/{task}', 'Task\TaskController@destroy');
 
-$router->get('/boards/assigns/all/{taskId}', 'Task\TaskAssignCommentUserController@index');
-$router->post('/boards/assigns', 'Task\TaskAssignCommentController@store');
-$router->get('/boards/assigns/{TaskAssign}', 'Task\TaskAssignCommentController@show');
-$router->delete('/boards/assigns/{TaskAssign}', 'Task\TaskAssignCommentController@destroy');
+$router->get('/tasks/assigns/all/{taskId}', 'Task\TaskAssignCommentUserController@index');
+$router->post('/tasks/assigns', 'Task\TaskAssignCommentController@store');
+$router->get('/tasks/assigns/{TaskAssign}', 'Task\TaskAssignCommentController@show');
+$router->delete('/tasks/assigns/{TaskAssign}', 'Task\TaskAssignCommentController@destroy');
 
-$router->get('/boards/comments/all/{taskId}', 'Task\TaskCommentUserController@index');
-$router->post('/boards/comments', 'Task\TaskCommentController@store');
-$router->get('/boards/comments/{TaskComment}', 'Task\TaskCommentController@show');
-$router->put('/boards/comments/{TaskComment}', 'Task\TaskCommentController@update');
-$router->delete('/boards/comments/{TaskComment}', 'Task\TaskCommentController@destroy');
+$router->get('/tasks/comments/all/{taskId}', 'Task\TaskCommentUserController@index');
+$router->post('/tasks/comments', 'Task\TaskCommentController@store');
+$router->get('/tasks/comments/{TaskComment}', 'Task\TaskCommentController@show');
+$router->put('/tasks/comments/{TaskComment}', 'Task\TaskCommentController@update');
+$router->delete('/tasks/comments/{TaskComment}', 'Task\TaskCommentController@destroy');

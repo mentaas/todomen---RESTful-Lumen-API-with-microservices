@@ -16,12 +16,12 @@ class BoardService
     public function __construct(BoardRepository $boardRepository)
     {
         $this->boardRepository = $boardRepository;
-        set_exception_handler(array('App\Services\BoardService','exception_handler'));
+//        set_exception_handler(array('App\Services\BoardService','exception_handler'));
     }
 
-    public static function exception_handler(\Exception $e) {
-        return \response()->json(['error' => $e->getMessage(), 'code' => Response::HTTP_BAD_REQUEST], Response::HTTP_BAD_REQUEST);
-    }
+//    public static function exception_handler(\Throwable $e) {
+//        return \response()->json(['error' => $e->getMessage(), 'code' => Response::HTTP_BAD_REQUEST], Response::HTTP_BAD_REQUEST);
+//    }
 
     public function saveBoard($board, $userId)
     {

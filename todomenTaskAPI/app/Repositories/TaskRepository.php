@@ -51,7 +51,8 @@ class TaskRepository
 
     public function deleteTask(int $id)
     {
-        return $this->task->delete($id);
+        $taskDb = $this->getTask($id);
+        return $taskDb->delete();
     }
 
 
@@ -73,7 +74,8 @@ class TaskRepository
 
     public function deleteTaskAssign(int $id)
     {
-        return $this->taskAssign->delete($id);
+        $taskAssignDb = $this->getTaskAssign($id);
+        return $taskAssignDb->delete();
     }
 
     //taskComment
@@ -103,6 +105,7 @@ class TaskRepository
 
     public function deleteTaskComment(int $id)
     {
-        return $this->taskComment->delete($id);
+        $taskCommentDb = $this->getTaskComment($id);
+        return $taskCommentDb->delete($id);
     }
 }
